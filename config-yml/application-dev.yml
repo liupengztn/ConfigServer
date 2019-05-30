@@ -1,0 +1,123 @@
+# eureka\u9AD8\u53EF\u7528
+#eureka.client.serviceUrl.defaultZone=http://sc1:8001/eureka/,http://sc2:8002/eureka/,http://sc3:8003/eureka/
+# eureka\u5355\u70B9
+eureka.client.serviceUrl.defaultZone=http://localhost:8888/eureka/
+#\u5B9A\u4E49\u670D\u52A1\u7EED\u7EA6\u4EFB\u52A1\uFF08\u5FC3\u8DF3\uFF09\u7684\u8C03\u7528\u95F4\u9694\uFF0C\u5355\u4F4D\uFF1A\u79D2\uFF08\u9ED8\u8BA430\u79D2\uFF09
+eureka.instance.lease-renewal-interval-in-seconds=10
+#\u5B9A\u4E49\u670D\u52A1\u5931\u6548\u7684\u65F6\u95F4\uFF0C\u5355\u4F4D\uFF1A\u79D2\uFF08\u9ED8\u8BA490\u79D2\uFF09
+eureka.instance.lease-expiration-duration-in-seconds=30
+eureka.instance.prefer-ip-address=true
+eureka.instance.instance-id=${spring.cloud.client.ipAddress}:${spring.application.name}:${server.port}
+
+server.port=7002
+spring.application.name=homehood-message-rest
+
+# config server
+#\u914D\u7F6Egit\u4ED3\u5E93\u4F4D\u7F6E https://gitee.com//homehood
+spring.cloud.config.server.bootstrap=true
+spring.cloud.config.server.prefix=/homehood
+spring.cloud.config.server.git.uri=https://gitee.com/homehood
+
+#\u914D\u7F6E\u4ED3\u5E93\u8DEF\u5F84\u4E0B\u7684\u76F8\u5BF9\u641C\u7D22\u4F4D\u7F6E\uFF0C\u53EF\u4EE5\u914D\u7F6E\u591A\u4E2A
+spring.cloud.config.server.git.searchPaths=homehood-config
+#\u8BBF\u95EEgit\u4ED3\u5E93\u7684\u7528\u6237\u540D/\u4ED3\u5E93\u65E0\u9700\u7528\u6237\u540D\u5BC6\u7801\u5219\u53EF\u4EE5\u4E0D\u586B
+spring.cloud.config.server.git.username=xxx
+#\u8BBF\u95EEgit\u4ED3\u5E93\u7684\u7528\u6237\u5BC6\u7801
+spring.cloud.config.server.git.password=xxx
+
+## Redis \u914D\u7F6E
+## Redis\u6570\u636E\u5E93\u7D22\u5F15\uFF08\u9ED8\u8BA4\u4E3A0\uFF09
+spring.redis.database=0
+## Redis\u670D\u52A1\u5668\u5730\u5740
+spring.redis.host=192.168.1.250
+## Redis\u670D\u52A1\u5668\u8FDE\u63A5\u7AEF\u53E3
+spring.redis.port=6379
+## Redis\u670D\u52A1\u5668\u8FDE\u63A5\u5BC6\u7801\uFF08\u9ED8\u8BA4\u4E3A\u7A7A\uFF09
+spring.redis.password=123456
+## \u8FDE\u63A5\u6C60\u6700\u5927\u8FDE\u63A5\u6570\uFF08\u4F7F\u7528\u8D1F\u503C\u8868\u793A\u6CA1\u6709\u9650\u5236\uFF09
+spring.redis.pool.max-active=8
+## \u8FDE\u63A5\u6C60\u6700\u5927\u963B\u585E\u7B49\u5F85\u65F6\u95F4\uFF08\u4F7F\u7528\u8D1F\u503C\u8868\u793A\u6CA1\u6709\u9650\u5236\uFF09
+spring.redis.pool.max-wait=-1
+## \u8FDE\u63A5\u6C60\u4E2D\u7684\u6700\u5927\u7A7A\u95F2\u8FDE\u63A5
+spring.redis.pool.max-idle=8
+## \u8FDE\u63A5\u6C60\u4E2D\u7684\u6700\u5C0F\u7A7A\u95F2\u8FDE\u63A5
+spring.redis.pool.min-idle=0
+## \u8FDE\u63A5\u8D85\u65F6\u65F6\u95F4\uFF08\u6BEB\u79D2\uFF09
+spring.redis.timeout=0
+
+#management.security.enabled=false
+
+# log4j
+logging.config=classpath:conf/log4j2.xml
+
+# \u6570\u636E\u6E90\u516C\u5171\u53C2\u6570
+druid.datasource.initialSize=5
+druid.datasource.maxActive=10
+druid.datasource.minIdle=5
+druid.datasource.maxWait=60000
+druid.datasource.useUnfairLock=true
+druid.datasource.testOnBorrow=false
+druid.datasource.testOnReturn=false
+druid.datasource.testWhileIdle=true
+druid.datasource.timeBetweenEvictionRunsMillis=60000
+druid.datasource.minEvictableIdleTimeMillis=300000
+# filters\uFF1A\u5982\u679C\u662FSQLite\uFF0C\u4E0D\u80FD\u914D\u7F6Ewall
+druid.datasource.filters=stat,log4j
+#druid.datasource.filters=stat,log4j
+
+# \u9ED8\u8BA4\u6570\u636E\u5E93
+druid.datasource.url=jdbc:mysql://39.98.57.131:3306/homehood_message?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+druid.datasource.driverClassName=com.mysql.jdbc.Driver
+druid.datasource.username=homehood_dev
+druid.datasource.password=Homehood2019
+druid.datasource.validationQuery=SELECT 1
+
+# \u6570\u636E\u5E931
+custom.datasource.names=db1,db2
+custom.datasource.db1.url=jdbc:mysql://39.98.57.131:3306/homehood_message?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+custom.datasource.db1.driverClassName=com.mysql.jdbc.Driver
+custom.datasource.db1.username=homehood_dev
+custom.datasource.db1.password=Homehood2019
+custom.datasource.db1.validationQuery=SELECT 1
+
+# \u6570\u636E\u5E932
+custom.datasource.db2.url=jdbc:mysql://39.98.57.131:3306/homehood_message?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+custom.datasource.db2.driverClassName=com.mysql.jdbc.Driver
+custom.datasource.db2.username=homehood_dev
+custom.datasource.db2.password=Homehood2019
+custom.datasource.db2.validationQuery=SELECT 1
+
+## mybatis config
+mybatis.mapperLocations=classpath*:mapper/**/*.xml
+mybatis.typeAliasesPackage=com.home.common.api.model
+
+spring.messages.basename=messages/messages
+spring.messages.always-use-message-format=true
+spring.messages.cache-seconds=3600
+spring.messages.fallback-to-system-locale=false
+
+# mybatis config
+#pagehelper.helperDialect=sqlite
+pagehelper.helperDialect=mysql
+pagehelper.reasonable=true
+pagehelper.supportMethodsArguments=true
+pagehelper.params=count=countSql
+
+# Feign
+feign.httpclient.enabled=true
+#feign.hystrix.enabled=false
+
+#message
+smsservice.aliyun.message.accessKeyId=LTAInZaPsdxzhEwD
+smsservice.aliyun.message.accessKeySecret=lsDes3UJ3lKWsaoAeDcOGIKsMQTZbZ
+smsservice.aliyun.message.defaultConnectTimeout=10000
+smsservice.aliyun.message.defaultReadTimeout=10000
+smsservice.aliyun.message.signName=\u7426\u5883\u79D1\u6280
+smsservice.aliyun.message.queueName=Alicom-Queue-1913545882975437-SmsReport
+smsservice.aliyun.message.messageType=SmsReport
+#email
+smsservice.aliyun.email.accessKeyId=LTAInZaPsdxzhEwD
+smsservice.aliyun.email.accessKeySecret=lsDes3UJ3lKWsaoAeDcOGIKsMQTZbZ
+smsservice.aliyun.email.tagName=qichuangjia
+smsservice.aliyun.email.accountName=qichuangjia@email.qichuangjia.com
+smsservice.aliyun.email.fromAlias=\u7426\u5883\u79D1\u6280
