@@ -15,7 +15,8 @@ spring:
         max-idle: 8
         min-idle: 0
     timeout: 1000
-
+server:
+  port: 3333
 eureka:
   client:
     register-with-eureka: false
